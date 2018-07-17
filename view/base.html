@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+<!-- Font -->
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+<!-- Skeleton CSS -->
+    <link rel="stylesheet" href="{{static_url("normalize.css")}}">
+    <link rel="stylesheet" href="{{static_url("skeleton.css")}}">
+<!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  </head>
+  <body>
+    <div class="data-container">
+      <div id="button-more" onclick="loadMore()">I am a button</div>
+      <div id="loading-div">
+        Loading more items
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        $("#loading-div").hide();
+        $.get("http://jsonplaceholder.typicode.com/photos", {}, function(resp){
+          for(var i = 0; i < 10; i++) {
+            console.log(resp[i]["url"]);
+            $("<div><img width=200 src="+resp[i]["url"]+"></div>").prependTo($(".data-container"));
+          }
+        });
+        return false;
+      })();
+      var loadMore = function() {
+        $("#loading-div").show();
+        $("#button-more").hide();
+        $.get("http://jsonplaceholder.typicode.com/photos", {}, function(resp){
+          $("#button-more").show();
+          $("#loading-div").hide();
+          for(var i = 0; i < 10; i++) {
+            $("<div><img width=200 src="+resp[i]["url"]+"></div>").prependTo($(".data-container"));
+          }
+        });
+        return false;
+      }
+
+      $(window).scroll(function() {
+        if($(window).scrollTop() + $(window).height() == $(document).height()) {
+          loadMore();
+        }
+      });
+    </script>
+  </body>
+</html>
