@@ -9,5 +9,7 @@ def make_app():
         "login_url": "/login"
     }
     return tornado.web.Application([
-        (r"/", MainHandler)],
+        (r"/", MainHandler),
+        (r"/make_item", ItemHandler)
+        ],
         **settings)

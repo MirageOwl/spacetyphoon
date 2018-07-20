@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+<!-- Font -->
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+<!-- Skeleton CSS -->
+    <link rel="stylesheet" href="{{static_url("normalize.css")}}">
+    <link rel="stylesheet" href="{{static_url("skeleton.css")}}">
+<!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="six columns offset-by-three">
+          <form id="make-item-form" action="#">
+            <div class="row">
+              <div class="six columns">
+                <label for="name">Name:</label>
+                <input type="text" class="u-full-width" id="item-name">
+                <label for="image">Image Path:</label>
+                <input type="text" class="u-full-width" id="img-url">
+              </div>
+              <div class="six columns">
+                <img src="#" alt="Preview">
+              </div>
+            </div>
+            <label for="desc">Description:</label>
+            <textarea class="u-full-width" id="item-desc"></textarea>
+            <label for="price">Price:</label>
+            <div class="row">
+              <input type="number" class="six columns" min="0" id="price">
+              <button type=submit class="six columns">Add to DB</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $("#make-item-form").submit(function(event) {
+        event.preventDefault();
+        $.post(
+          "/make_item",
+          { "item-name": $("#item-name").val(),
+            "item-desc": $("#item-desc").val(),
+            "price": $("#price").val(),
+            "img-url": $("#img-url").val()
+          },
+          function (resp) {
+            
+          }
+        );
+      });
+    </script>
+  </body>
+</html>
