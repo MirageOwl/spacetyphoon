@@ -13,6 +13,7 @@
   </head>
   <body>
     <div class="container">
+      <div id="success" hidden></div>
       <div class="row">
         <div class="six columns offset-by-three">
           <form id="make-item-form" action="#">
@@ -24,7 +25,7 @@
                 <input type="text" class="u-full-width" id="img-url">
               </div>
               <div class="six columns">
-                <img src="#" alt="Preview">
+                <img src="#" alt="" id="Preview" width=150>
               </div>
             </div>
             <label for="desc">Description:</label>
@@ -50,9 +51,14 @@
             "img-url": $("#img-url").val()
           },
           function (resp) {
-            
+            $("#success").text(resp["name"] + " added succesfully!").show().fadeOut(100);
           }
         );
+      });
+      var img_path = $("#img-url");
+      img_path[0].addEventListener("input", function () {
+        if(img_path.val() == "") { return false; }
+        $("#Preview").attr("src", img_path.val());
       });
     </script>
   </body>

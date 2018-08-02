@@ -15,4 +15,4 @@ class ItemHandler(tornado.web.RequestHandler):
         price = self.get_argument("price")
         img_url = self.get_argument("img-url")
         add_item(name, desc, price, img_url)
-        self.render("view/make_item.html")
+        self.write({"name": name})
